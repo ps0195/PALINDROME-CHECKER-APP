@@ -1,22 +1,27 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
-class StackPalindrome {
+class QueueStackPalindrome {
 
     public static void main(String[] args) {
 
-        String word = "noon";
+        String word = "civic";
+
+        Queue<Character> queue = new LinkedList<>();
         Stack<Character> stack = new Stack<>();
 
-        // Push characters into stack
+        // Insert into queue and stack
         for (int i = 0; i < word.length(); i++) {
-            stack.push(word.charAt(i));
+            queue.add(word.charAt(i));   // Enqueue
+            stack.push(word.charAt(i));  // Push
         }
 
         boolean isPalindrome = true;
 
-        // Pop and compare
-        for (int i = 0; i < word.length(); i++) {
-            if (word.charAt(i) != stack.pop()) {
+        // Compare dequeue vs pop
+        while (!queue.isEmpty()) {
+            if (queue.remove() != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
