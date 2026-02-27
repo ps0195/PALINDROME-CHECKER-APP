@@ -1,17 +1,31 @@
-class PalindromeApp {
+import java.util.Stack;
+
+class StackPalindrome {
 
     public static void main(String[] args) {
 
-        // Application details
-        String appName = "Palindrome Checker";
-        String version = "Version 1.0";
+        String word = "noon";
+        Stack<Character> stack = new Stack<>();
 
-        // Display welcome message
-        System.out.println("Welcome to " + appName);
-        System.out.println(version);
-        System.out.println("Application started successfully.");
+        // Push characters into stack
+        for (int i = 0; i < word.length(); i++) {
+            stack.push(word.charAt(i));
+        }
 
-        // Continue to next use case or exit
-        System.out.println("Ready for palindrome processing...");
+        boolean isPalindrome = true;
+
+        // Pop and compare
+        for (int i = 0; i < word.length(); i++) {
+            if (word.charAt(i) != stack.pop()) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        if (isPalindrome) {
+            System.out.println(word + " is a palindrome.");
+        } else {
+            System.out.println(word + " is not a palindrome.");
+        }
     }
 }
