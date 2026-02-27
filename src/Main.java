@@ -1,17 +1,13 @@
-class PalindromeApp {
+class HardcodedPalindrome {
 
     public static void main(String[] args) {
 
-        // Application details
-        String appName = "Palindrome Checker";
-        String version = "Version 1.0";
+        String word = "madam";   // Hardcoded string
 
-        // Display welcome message
-        System.out.println("Welcome to " + appName);
-        System.out.println(version);
-        System.out.println("Application started successfully.");
-
-        // Continue to next use case or exit
-        System.out.println("Ready for palindrome processing...");
+        if (word.equals("madam")) {
+            System.out.println(word + " is a palindrome.");
+        } else {
+            System.out.println(word + " is not a palindrome.");
+        }
     }
 }
