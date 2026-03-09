@@ -1,73 +1,18 @@
 import java.util.Scanner;
 
-class Node {
-    char data;
-    Node next;
+public class UseCase10PalindromeCheckerApp {
 
-    Node(char data) {
-        this.data = data;
-        this.next = null;
-    }
-}
+    public static boolean isPalindrome(String str) {
+        int start = 0;
+        int end = str.length() - 1;
 
-public class UseCase8PalindromeCheckerApp {
-
-    public static Node createLinkedList(String str) {
-        Node head = null;
-        Node tail = null;
-
-        for (int i = 0; i < str.length(); i++) {
-            Node newNode = new Node(str.charAt(i));
-
-            if (head == null) {
-                head = newNode;
-                tail = newNode;
-            } else {
-                tail.next = newNode;
-                tail = newNode;
-            }
-        }
-        return head;
-    }
-
-    public static Node reverse(Node head) {
-        Node prev = null;
-        Node current = head;
-        Node next = null;
-
-        while (current != null) {
-            next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
-        }
-        return prev;
-    }
-
-    public static boolean isPalindrome(Node head) {
-        if (head == null || head.next == null) {
-            return true;
-        }
-
-        Node slow = head;
-        Node fast = head;
-
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-
-        Node secondHalf = reverse(slow);
-        Node firstHalf = head;
-
-        while (secondHalf != null) {
-            if (firstHalf.data != secondHalf.data) {
+        while (start < end) {
+            if (str.charAt(start) != str.charAt(end)) {
                 return false;
             }
-            firstHalf = firstHalf.next;
-            secondHalf = secondHalf.next;
+            start++;
+            end--;
         }
-
         return true;
     }
 
@@ -77,9 +22,10 @@ public class UseCase8PalindromeCheckerApp {
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
 
-        Node head = createLinkedList(input);
+        // Normalize string: remove spaces and convert to lowercase
+        String normalized = input.replaceAll("\\s+", "").toLowerCase();
 
-        if (isPalindrome(head)) {
+        if (isPalindrome(normalized)) {
             System.out.println("Palindrome");
         } else {
             System.out.println("Not Palindrome");
