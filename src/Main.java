@@ -12,7 +12,6 @@ class Node {
 
 public class UseCase8PalindromeCheckerApp {
 
-    // Convert String to Linked List
     public static Node createLinkedList(String str) {
         Node head = null;
         Node tail = null;
@@ -31,7 +30,6 @@ public class UseCase8PalindromeCheckerApp {
         return head;
     }
 
-    // Reverse Linked List
     public static Node reverse(Node head) {
         Node prev = null;
         Node current = head;
@@ -46,9 +44,7 @@ public class UseCase8PalindromeCheckerApp {
         return prev;
     }
 
-    // Check if Linked List is Palindrome
     public static boolean isPalindrome(Node head) {
-
         if (head == null || head.next == null) {
             return true;
         }
@@ -56,18 +52,14 @@ public class UseCase8PalindromeCheckerApp {
         Node slow = head;
         Node fast = head;
 
-        // Find middle of linked list
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
 
-        // Reverse second half
         Node secondHalf = reverse(slow);
-
         Node firstHalf = head;
 
-        // Compare both halves
         while (secondHalf != null) {
             if (firstHalf.data != secondHalf.data) {
                 return false;
@@ -82,16 +74,15 @@ public class UseCase8PalindromeCheckerApp {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
 
         Node head = createLinkedList(input);
 
         if (isPalindrome(head)) {
-            System.out.println("The string \"" + input + "\" is a Palindrome.");
+            System.out.println("Palindrome");
         } else {
-            System.out.println("The string \"" + input + "\" is NOT a Palindrome.");
+            System.out.println("Not Palindrome");
         }
 
         scanner.close();
