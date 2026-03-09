@@ -1,83 +1,99 @@
-import java.util.ArrayDeque;
+import java.util.Scanner;
 
-class PalindromeApp {
+class Node {
+    char data;
+    Node next;
 
-    public static void main(String[] args) {
-
-        // Application details
-        String appName = "Palindrome Checker";
-        String version = "Version 1.0";
-
-        // Display welcome message
-        System.out.println("Welcome to " + appName);
-        System.out.println(version);
-        System.out.println("Application started successfully.");
-
-        // Continue to next use case or exit
-        System.out.println("Ready for palindrome processing...");
+    Node(char data) {
+        this.data = data;
+        this.next = null;
     }
 }
 
-class HardcodedPalindrome {
+public class UseCase8PalindromeCheckerApp {
 
-    public static void main(String[] args) {
+    // Convert String to Linked List
+    public static Node createLinkedList(String str) {
+        Node head = null;
+        Node tail = null;
 
-        String word = "madam";   // Hardcoded string
+        for (int i = 0; i < str.length(); i++) {
+            Node newNode = new Node(str.charAt(i));
 
-        if (word.equals("madam")) {
-            System.out.println(word + " is a palindrome.");
-        } else {
-            System.out.println(word + " is not a palindrome.");
-        }
-    }
-}
-
-class ReverseStringPalindrome {
-
-    public static void main(String[] args) {
-
-        String original = "level";
-        String reversed = "";
-
-        // Reverse using for loop
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed = reversed + original.charAt(i);
-        }
-
-        // Compare using equals()
-        if (original.equals(reversed)) {
-            System.out.println(original + " is a palindrome.");
-        } else {
-            System.out.println(original + " is not a palindrome.");
-        }
-    }
-}
-
-class CharArrayPalindrome {
-
-    public static void main(String[] args) {
-
-        String word = "radar";
-        char[] characters = word.toCharArray();
-
-        int start = 0;
-        int end = characters.length - 1;
-        boolean isPalindrome = true;
-
-        // Two-pointer technique
-        while (start < end) {
-            if (characters[start] != characters[end]) {
-                isPalindrome = false;
-                break;
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
             }
-            start++;
-            end--;
+        }
+        return head;
+    }
+
+    // Reverse Linked List
+    public static Node reverse(Node head) {
+        Node prev = null;
+        Node current = head;
+        Node next = null;
+
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
+    }
+
+    // Check if Linked List is Palindrome
+    public static boolean isPalindrome(Node head) {
+
+        if (head == null || head.next == null) {
+            return true;
         }
 
-        if (isPalindrome) {
-            System.out.println(word + " is a palindrome.");
-        } else {
-            System.out.println(word + " is not a palindrome.");
+        Node slow = head;
+        Node fast = head;
+
+        // Find middle of linked list
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
         }
+
+        // Reverse second half
+        Node secondHalf = reverse(slow);
+
+        Node firstHalf = head;
+
+        // Compare both halves
+        while (secondHalf != null) {
+            if (firstHalf.data != secondHalf.data) {
+                return false;
+            }
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
+
+        Node head = createLinkedList(input);
+
+        if (isPalindrome(head)) {
+            System.out.println("The string \"" + input + "\" is a Palindrome.");
+        } else {
+            System.out.println("The string \"" + input + "\" is NOT a Palindrome.");
+        }
+
+        scanner.close();
     }
 }
